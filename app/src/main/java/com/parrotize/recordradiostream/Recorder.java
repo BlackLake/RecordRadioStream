@@ -89,7 +89,7 @@ public class Recorder extends AsyncTask {
                 player.play();
             }
 
-        }, 3000);
+        }, 4000);
 
     }
 

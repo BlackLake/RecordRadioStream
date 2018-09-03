@@ -10,11 +10,11 @@
         android:id="@+id/buttonPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="76dp"
         android:text="Play"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextStreamURL" />
 
     <Button
         android:id="@+id/buttonPause"
@@ -22,24 +22,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="144dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="76dp"
         android:text="Pause"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/buttonPlay"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="71dp"
-        android:layout_marginStart="71dp"
-        android:layout_marginTop="100dp"
-        android:text="Metro FM"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextStreamURL" />
 
     <Button
         android:id="@+id/buttonPlayFromRecord"
@@ -47,9 +35,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="114dp"
         android:layout_marginStart="114dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="72dp"
         android:text="Play From Record"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonPause" />
 
@@ -59,11 +48,25 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="149dp"
         android:layout_marginStart="147dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="48dp"
         android:text="Stop Recording"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonPlayFromRecord" />
+
+    <EditText
+        android:id="@+id/editTextStreamURL"
+        android:layout_width="321dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="84dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="92dp"
+        android:ems="10"
+        android:hint="Stream URL (http://uk7.internet-radio.com:8226/stream)"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

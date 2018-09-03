@@ -30,10 +30,8 @@ public class Player {
     private void initializePlayer() throws IOException {
 
         File file = new File(context.getCacheDir(), recordedFileName);
-        int sayac = 0;
-        while (!file.exists()) sayac++;
 
-        Toast.makeText(context, String.valueOf(sayac), Toast.LENGTH_SHORT).show();
+        while (!file.exists());
 
         mediaPlayer.setDataSource(file.getPath());
         mediaPlayer.prepare();

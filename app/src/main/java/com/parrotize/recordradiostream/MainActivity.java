@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     Player player;
     Recorder recorder;
+    @BindView(R.id.editTextStreamURL) EditText editTextStreamURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         deleteRecordingFile();
 
-        //player= new Player("http://17733.live.streamtheworld.com:80/METRO_FM_SC",this,"yayin.mp3");
         //recorder = new Recorder(this,"http://17733.live.streamtheworld.com:80/METRO_FM_SC","yayin.mp3");
         recorder = new Recorder(this,"http://uk7.internet-radio.com:8226/stream","yayin.mp3");
     }
@@ -50,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.buttonPlay)
     public void onClickPlay(View view)
     {
+        reCreateRecorder();
+
+        Toast.makeText(this, recorder.getUrlPath(), Toast.LENGTH_SHORT).show();
+
         recorder.record();
         //player.play();
     }
@@ -59,10 +63,7 @@ public class MainActivity extends AppCompatActivity {
     {
         recorder.stopRecording();
         //player.stop();
-        recorder = null;
-        deleteRecordingFile();
-        recorder = new Recorder(this,"http://uk7.internet-radio.com:8226/stream","yayin.mp3");
-
+        reCreateRecorder();
     }
 
     @OnClick(R.id.buttonPlayFromRecord)
@@ -84,6 +85,23 @@ public class MainActivity extends AppCompatActivity {
         if (file.exists())
         {
             file.delete();
+        }
+    }
+
+    public void reCreateRecorder()
+    {
+        recorder.stopRecording();
+        recorder.player=null;
+        recorder = null;
+        deleteRecordingFile();
+        //System.gc();
+        if (!editTextStreamURL.getText().toString().equals(""))
+        {
+            recorder = new Recorder(this,editTextStreamURL.getText().toString(),"yayin.mp3");
+        }
+        else
+        {
+            recorder = new Recorder(this,"http://uk7.internet-radio.com:8226/stream","yayin.mp3");
         }
     }
 
