@@ -63,7 +63,7 @@
         android:layout_marginStart="85dp"
         android:layout_marginTop="92dp"
         android:ems="10"
-        android:hint="Stream URL (http://uk7.internet-radio.com:8226/stream)"
+        android:hint="Stream URL (http://159.253.37.137:9914/)"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

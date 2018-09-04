@@ -2,6 +2,7 @@ package com.parrotize.recordradiostream;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.net.sip.SipSession;
 import android.os.AsyncTask;
 import android.os.Handler;
 
@@ -32,7 +33,7 @@ public class Recorder extends AsyncTask {
         this.urlPath = url;
         this.recordedFileName = recordedFilePath;
         this.mediaPlayer = new MediaPlayer();
-        player = new Player(context,recordedFileName);
+        player = new Player(context,recordedFileName,urlPath);
     }
 
     @Override
@@ -47,14 +48,13 @@ public class Recorder extends AsyncTask {
             File file = new File(context.getCacheDir(), recordedFileName);
             OutputStream outputStream = new FileOutputStream(file);
 
-           // byte[] buffer = new byte[1];
+            byte[] buffer = new byte[4*1024];
             int read;
 
-            while ((read = inputStream.read()) != -1) {
-                //if (!isRecording) break;
+            while ((read = inputStream.read(buffer)) != -1) {
                 if(isCancelled())
                     break;
-                outputStream.write(read);
+                outputStream.write(buffer,0,read);
             }
             outputStream.flush();
             outputStream.close();
@@ -80,16 +80,9 @@ public class Recorder extends AsyncTask {
             file.delete();
         }
 
+        player.play();
+
         this.execute();
-
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                player.play();
-            }
-
-        }, 4000);
 
     }
 
@@ -97,8 +90,8 @@ public class Recorder extends AsyncTask {
     {
         isRecording=false;
         this.cancel(true);
+
         player.stop();
-        player.getMediaPlayer().reset();
     }
 
     public void playFromRecording()

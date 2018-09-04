@@ -31,9 +31,11 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    Player player;
     Recorder recorder;
-    @BindView(R.id.editTextStreamURL) EditText editTextStreamURL;
+    String streamURL = "http://159.253.37.137:9914/";
+    String recordedFileName = "yayin.mp3";
+    @BindView(R.id.editTextStreamURL)
+    EditText editTextStreamURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,66 +45,57 @@ public class MainActivity extends AppCompatActivity {
 
         deleteRecordingFile();
 
-        //recorder = new Recorder(this,"http://17733.live.streamtheworld.com:80/METRO_FM_SC","yayin.mp3");
-        recorder = new Recorder(this,"http://uk7.internet-radio.com:8226/stream","yayin.mp3");
     }
 
     @OnClick(R.id.buttonPlay)
-    public void onClickPlay(View view)
-    {
+    public void onClickPlay(View view) {
+
         reCreateRecorder();
+        deleteRecordingFile();
 
         Toast.makeText(this, recorder.getUrlPath(), Toast.LENGTH_SHORT).show();
 
         recorder.record();
-        //player.play();
     }
 
     @OnClick(R.id.buttonPause)
-    public void onClickPause(View view)
-    {
+    public void onClickPause(View view) {
         recorder.stopRecording();
-        //player.stop();
         reCreateRecorder();
     }
 
     @OnClick(R.id.buttonPlayFromRecord)
-    public void onClickPlayFromRecord(View view)
-    {
+    public void onClickPlayFromRecord(View view) {
         recorder.playFromRecording();
 
     }
 
     @OnClick(R.id.buttonStopFromRecord)
-    public void onClickStopFromRecord(View view)
-    {
+    public void onClickStopFromRecord(View view) {
         recorder.stopPlayingFromRecord();
     }
 
-    public void deleteRecordingFile()
-    {
-        File file = new File(getCacheDir(),"yayin.mp3");
-        if (file.exists())
-        {
+    public void deleteRecordingFile() {
+        File file = new File(getCacheDir(), "yayin.mp3");
+        if (file.exists()) {
             file.delete();
         }
     }
 
-    public void reCreateRecorder()
-    {
-        recorder.stopRecording();
-        recorder.player=null;
-        recorder = null;
-        deleteRecordingFile();
-        //System.gc();
-        if (!editTextStreamURL.getText().toString().equals(""))
-        {
-            recorder = new Recorder(this,editTextStreamURL.getText().toString(),"yayin.mp3");
+    public void reCreateRecorder() {
+        if (recorder != null) {
+            if (recorder.isRecording()) recorder.stopRecording();
+            recorder.player = null;
+            recorder = null;
+        }
+        if (!editTextStreamURL.getText().toString().equals("")){
+            streamURL = editTextStreamURL.getText().toString();
         }
         else
         {
-            recorder = new Recorder(this,"http://uk7.internet-radio.com:8226/stream","yayin.mp3");
+            streamURL = "http://159.253.37.137:9914/";
         }
+        recorder = new Recorder(this, streamURL, recordedFileName);
     }
 
 }
